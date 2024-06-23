@@ -1,19 +1,29 @@
 #!/usr/bin/python3
-"""modules"""
+""" MRUCache module
+"""
 BaseCaching = __import__('base_caching').BaseCaching
 
 
 class MRUCache(BaseCaching):
-    """ MRUCache class """
+    """ MRUCache inheretes from BaseCaching
+        and over rides
+      - get wich was not implemented
+      - put wich was not implemented
+    """
     def __init__(self):
-        """init"""
+        """ Initiliaze
+        """
         super().__init__()
         self.__count = 0
         self.__keys = []
         self.__counts = []
 
     def put(self, key, item):
-        """put"""
+        """ Add an item in the cache
+            if the cache containes more then
+            the allowed lenght removes
+            the most recently used item
+        """
         if not key or not item:
             return
         if key in self.__keys:
@@ -31,7 +41,8 @@ class MRUCache(BaseCaching):
         self.__count += 1
 
     def get(self, key):
-        """get"""
+        """ Get an item by key
+        """
         if key in self.__keys:
             self.__count += 1
             self.__counts[self.__keys.index(key)] = self.__count
